@@ -1,12 +1,12 @@
 <?php
 
-namespace RiVamp\Bitrix;
+namespace RiVamp\Facade\Rest;
 
 /**
  * Class Rest
  * @package Ilab
  */
-class Rest
+class Bitrix
 {
 	/**
 	 * @var int
