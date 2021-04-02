@@ -1,0 +1,24 @@
+{
+	"name": "rivump/rest",
+	"description": "Facade rest for RiVamp",
+	"type": "library",
+	"authors": [
+		{
+			"name": "Роман",
+			"email": "rr@ilab.kz"
+		},
+		{
+			"name": "Владислав",
+			"email": "bv@ilab.kz"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"RiVamp\\": "src/"
+		}
+	},
+	"require": {
+		"php": "^7.1"
+	},
+	"license": "MIT"
+}
