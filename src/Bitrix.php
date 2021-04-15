@@ -4,7 +4,7 @@ namespace RiVump\Facade\Rest;
 
 /**
  * Class Rest
- * @package Ilab
+ * @package RiVump
  */
 class Bitrix
 {
