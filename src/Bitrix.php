@@ -11,23 +11,29 @@ class Bitrix
 	/**
 	 * @var int
 	 */
-	public $reqCount = 0;
+	private static $req_count = 0;
 	/**
 	 * @var int
 	 */
-	public $reqStartTime = 0;
+	private static $req_start_time = 0;
 	/**
 	 * @var string
 	 */
 	public $restUrl;
 
 	/**
+	 * @var bool
+	 */
+	public $withSSL;
+
+	/**
 	 * Rest constructor.
 	 * @param string $restUrl
 	 */
-	public function __construct(string $restUrl)
+	public function __construct(string $restUrl, $withSSL = true)
 	{
 		$this->restUrl = $restUrl;
+		$this->withSSL = $withSSL;
 	}
 
 	/**
@@ -35,22 +41,25 @@ class Bitrix
 	 */
 	public function check_limit(): void
 	{
-		$time = round(microtime(true) - $this->reqStartTime, 1);
+		$time = round(microtime(true) - static::$req_start_time, 1);
 		$time_ms = (1 - $time) * 1000000;
 
-		if ($this->reqStartTime == 0 && $this->reqCount == 0) {
-			$this->reqCount++;
-			$this->reqStartTime = microtime(true);
-		} elseif ($this->reqCount >= 2 && $time <= 1) {
+		if(static::$req_start_time == 0 && static::$req_count == 0) {
+			static::$req_count++;
+			static::$req_start_time = microtime(true);
+		}
+		elseif(static::$req_count >= 2 && $time <= 1) {
 			usleep($time_ms);
 
-			$this->reqCount = 1;
-			$this->reqStartTime = microtime(true);
-		} elseif ($time > 1) {
-			$this->reqCount = 1;
-			$this->reqStartTime = microtime(true);
-		} else {
-			$this->reqCount++;
+			static::$req_count = 1;
+			static::$req_start_time = microtime(true);
+		}
+		elseif($time > 1) {
+			static::$req_count = 1;
+			static::$req_start_time = microtime(true);
+		}
+		else {
+			static::$req_count++;
 		}
 	}
 
@@ -74,7 +83,7 @@ class Bitrix
 		curl_setopt($cURLConnection, CURLOPT_VERBOSE, $verbose);
 		curl_setopt($cURLConnection, CURLOPT_URL, $restUrl);
 		curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
-		//curl_setopt($cURLConnection,CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($cURLConnection,CURLOPT_SSL_VERIFYPEER,	$this->withSSL);
 
 		$apiResponse = curl_exec($cURLConnection);
 		curl_close($cURLConnection);
