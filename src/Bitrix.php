@@ -1,6 +1,6 @@
 <?php
 
-namespace RiVamp\Facade\Rest;
+namespace RiVump\Facade\Rest;
 
 /**
  * Class Rest
