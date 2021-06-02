@@ -66,7 +66,7 @@ class Bitrix
 	/**
 	 * @param string $method
 	 * @param array $fields
-	 * @return array|false
+	 * @return mixed|false
 	 */
 	protected function response(string $method, array $fields = [])
 	{
@@ -96,7 +96,7 @@ class Bitrix
 	/**
 	 * @param string $method
 	 * @param array $params
-	 * @return array|false
+	 * @return mixed|false
 	 */
 	public function get(string $method, array $params = [])
 	{
@@ -106,7 +106,7 @@ class Bitrix
 	/**
 	 * @param string $method
 	 * @param array $fields
-	 * @return array|false
+	 * @return mixed|false
 	 */
 	public function add(string $method, array $fields): bool
 	{
@@ -116,7 +116,7 @@ class Bitrix
 	/**
 	 * @param string $method
 	 * @param array $fields
-	 * @return array|false
+	 * @return mixed|false
 	 */
 	public function update(string $method, array $fields)
 	{
